@@ -1,0 +1,15 @@
+DROP TABLE seq_numbers;
+
+CREATE TABLE seq_numbers (
+  n INT UNSIGNED PRIMARY KEY
+) ENGINE=InnoDB;
+
+TRUNCATE seq_numbers;
+
+WITH RECURSIVE seq AS (
+  SELECT 1 AS n
+  UNION ALL
+  SELECT n + 1 FROM seq WHERE n < 5000000
+)
+INSERT INTO seq_numbers (n)
+SELECT n FROM seq;
