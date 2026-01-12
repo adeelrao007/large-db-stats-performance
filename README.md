@@ -8,6 +8,12 @@
 - DB: MySQL 9.1.x:
 - LANG: PhP 8.2.x:
 
+## Import DB
+```bash
+
+source {project-path}/large-db-stats-performance/db/seq-numbers.sql;
+source {project-path}/large-db-stats-performance/db/bulk-seed-sql.sql;
+
 ## go next level, do this:
 ```bash
 
