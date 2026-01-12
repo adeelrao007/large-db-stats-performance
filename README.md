@@ -14,7 +14,7 @@
 source {project-path}/large-db-stats-performance/db/seq-numbers.sql;
 source {project-path}/large-db-stats-performance/db/bulk-seed-sql.sql;
 
-## go next level, do this:
+## For Better DB Performance, do this:
 ```bash
 
 innodb_buffer_pool_size = 70% of RAM
