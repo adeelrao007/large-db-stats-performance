@@ -9,7 +9,7 @@
 - LANG: PhP 8.2.x:
 
 ## Import DB
-```bash
+```code
 
 source {project-path}/large-db-stats-performance/db/seq-numbers.sql;
 source {project-path}/large-db-stats-performance/db/bulk-seed-sql.sql;
