@@ -1,23 +1,28 @@
 SET FOREIGN_KEY_CHECKS=0;
 SET SESSION sql_mode = '';
 
-CREATE TABLE seq_numbers (
-    n INT PRIMARY KEY
-);
-
-/* =========================
-   SEQUENCE GENERATOR
-========================= */
-WITH RECURSIVE seq_1m AS (
-  SELECT 1 n
-  UNION ALL
-  SELECT n + 1 FROM seq_1m WHERE n < 5000000
-)
-SELECT n INTO TABLE seq_numbers FROM seq_1m;
-
 /* =========================
    STATIC LOOKUPS
 ========================= */
+
+TRUNCATE languages;
+TRUNCATE currencies;
+TRUNCATE regions;
+TRUNCATE permissions;
+TRUNCATE accounts;
+TRUNCATE categories;
+TRUNCATE products;
+TRUNCATE product_inventory;
+TRUNCATE product_prices;
+TRUNCATE carts;
+TRUNCATE orders;
+TRUNCATE order_items;
+TRUNCATE payments;
+TRUNCATE conversations;
+TRUNCATE conversation_participants;
+TRUNCATE message_reads;
+TRUNCATE activity_logs;
+TRUNCATE admin_audit_logs;
 
 INSERT INTO languages (code, name) VALUES
 ('en', 'English'),
@@ -93,10 +98,10 @@ FROM products;
 
 INSERT INTO product_prices (product_id, currency_id, price)
 SELECT
-  id,
+  p.id,
   c.id,
   ROUND(RAND()*500,2)
-FROM products
+FROM products p
 JOIN currencies c;
 
 /* =========================

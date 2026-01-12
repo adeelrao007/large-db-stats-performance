@@ -1,3 +1,13 @@
+## Large DB
+- Generate Large Database
+- Create APIs in Laravel, FastAPI and NodeJs
+- Benchmarking performace 
+- Applying Improvements
+
+## DB Tech Stack
+- DB: MySQL 9.1.x:
+- LANG: PhP 8.2.x:
+
 ## go next level, do this:
 ```bash
 
