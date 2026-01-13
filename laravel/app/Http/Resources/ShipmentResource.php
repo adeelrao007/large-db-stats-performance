@@ -7,13 +7,14 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class ShipmentResource extends JsonResource
 {
-    /**
-     * Transform the resource into an array.
-     *
-     * @return array<string, mixed>
-     */
-    public function toArray(Request $request): array
+    public function toArray(Request $request)
     {
-        return parent::toArray($request);
+        return [
+            'carrier'         => $this->carrier,
+            'tracking_number' => $this->tracking_number,
+            'status'          => $this->status,
+            'shipped_at'      => $this->shipped_at,
+        ];
     }
 }
+

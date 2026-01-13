@@ -7,13 +7,17 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class ProductReviewResource extends JsonResource
 {
-    /**
-     * Transform the resource into an array.
-     *
-     * @return array<string, mixed>
-     */
-    public function toArray(Request $request): array
+    public function toArray(Request $request)
     {
-        return parent::toArray($request);
+        return [
+            'rating'     => $this->rating,
+            'comment'    => $this->comment,
+            'created_at'=> $this->created_at,
+
+            'user' => new UserResource(
+                $this->whenLoaded('user')
+            ),
+        ];
     }
 }
+

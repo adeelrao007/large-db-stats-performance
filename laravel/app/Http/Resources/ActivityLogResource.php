@@ -4,16 +4,16 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
-
-class ActivityLogResource extends JsonResource
+class AdminAuditLogResource extends JsonResource
 {
-    /**
-     * Transform the resource into an array.
-     *
-     * @return array<string, mixed>
-     */
-    public function toArray(Request $request): array
+    public function toArray(Request $request)
     {
-        return parent::toArray($request);
+        return [
+            'action'      => $this->action,
+            'target_type' => $this->target_type,
+            'target_id'   => $this->target_id,
+            'created_at'  => $this->created_at,
+        ];
     }
 }
+

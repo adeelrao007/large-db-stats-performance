@@ -7,13 +7,20 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class AdminRoleAssignmentResource extends JsonResource
 {
-    /**
-     * Transform the resource into an array.
-     *
-     * @return array<string, mixed>
-     */
-    public function toArray(Request $request): array
+    public function toArray(Request $request)
     {
-        return parent::toArray($request);
+        return [
+            'admin_user_id' => $this->admin_user_id,
+            'role_id'       => $this->role_id,
+
+            'admin' => new AdminUserResource(
+                $this->whenLoaded('adminUser')
+            ),
+
+            'role' => new RoleResource(
+                $this->whenLoaded('role')
+            ),
+        ];
     }
 }
+
