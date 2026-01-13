@@ -6,5 +6,23 @@ use Illuminate\Database\Eloquent\Model;
 
 class Shipment extends Model
 {
-    //
+    protected $table = 'shipments';
+
+    protected $fillable = [
+        'order_id',
+        'carrier',
+        'tracking_number',
+        'status',
+        'shipped_at',
+    ];
+
+    protected $casts = [
+        'shipped_at' => 'datetime',
+    ];
+
+    public function order()
+    {
+        return $this->belongsTo(Order::class);
+    }
 }
+

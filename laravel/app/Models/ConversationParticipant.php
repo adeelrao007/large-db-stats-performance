@@ -6,5 +6,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class ConversationParticipant extends Model
 {
-    //
+    protected $table = 'conversation_participants';
+    public $timestamps = false;
+
+    public function conversation()
+    {
+        return $this->belongsTo(Conversation::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
+
