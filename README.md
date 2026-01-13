@@ -8,6 +8,11 @@
 - DB: MySQL 9.1.x:
 - LANG: PhP 8.2.x:
 
+## Performance Measurement
+- Laravel
+- Python (FastAPI)
+- NodeJs
+
 ## Import and DB Performance
 ```
 
