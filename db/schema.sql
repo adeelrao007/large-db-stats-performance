@@ -4,7 +4,6 @@ DROP TABLE IF EXISTS languages;
 DROP TABLE IF EXISTS currencies;
 DROP TABLE IF EXISTS regions;
 DROP TABLE IF EXISTS accounts;
-DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS addresses;
 DROP TABLE IF EXISTS activity_logs;
 DROP TABLE IF EXISTS categories;
@@ -67,20 +66,6 @@ CREATE TABLE accounts (
   status ENUM('active','suspended') DEFAULT 'active',
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   INDEX (status)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-CREATE TABLE users (
-  id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-  account_id BIGINT UNSIGNED NOT NULL,
-  language_id SMALLINT UNSIGNED,
-  region_id SMALLINT UNSIGNED,
-  name VARCHAR(150),
-  email VARCHAR(150) UNIQUE,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  INDEX (account_id),
-  FOREIGN KEY (account_id) REFERENCES accounts(id),
-  FOREIGN KEY (language_id) REFERENCES languages(id),
-  FOREIGN KEY (region_id) REFERENCES regions(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE addresses (
