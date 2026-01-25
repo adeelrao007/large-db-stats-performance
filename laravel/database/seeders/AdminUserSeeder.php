@@ -10,6 +10,7 @@ class AdminUserSeeder extends Seeder
     public function run(): void
     {
         $faker = fake();
+        DB::table('admin_users')->truncate();
 
         DB::table('admin_users')->insert([
             [

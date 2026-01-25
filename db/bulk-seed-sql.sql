@@ -44,19 +44,6 @@ INSERT INTO regions (code, name, default_currency_id) VALUES
 ('PK', 'Pakistan', 4);
 
 /* =========================
-   PERMISSIONS
-========================= */
-
-INSERT INTO permissions (name) VALUES
-('products.create'),
-('products.update'),
-('orders.view'),
-('orders.refund'),
-('users.ban'),
-('chat.moderate'),
-('admin.manage');
-
-/* =========================
    ACCOUNTS
 ========================= */
 

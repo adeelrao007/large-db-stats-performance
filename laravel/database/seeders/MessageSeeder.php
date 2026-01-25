@@ -9,6 +9,8 @@ class MessageSeeder extends Seeder
 {
     public function run(): void
     {
+
+        DB::table('messages')->truncate();
         $messages = [
             'Hi, is this available?',
             'Can you share more details?',

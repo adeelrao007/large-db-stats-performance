@@ -10,6 +10,7 @@ class ProductTranslationSeeder extends Seeder
     public function run(): void
     {
         $faker = fake();
+        DB::table('product_translations')->truncate();
 
         foreach (range(1, 5) as $langId) {
             DB::table('products')->select('id')->chunk(1000, function ($products) use ($faker, $langId) {

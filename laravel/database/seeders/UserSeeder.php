@@ -11,6 +11,7 @@ class UserSeeder extends Seeder
     {
         $faker = fake();
         $batch = [];
+        DB::table('users')->truncate();
 
         for ($i = 1; $i <= 200000; $i++) {
             $batch[] = [

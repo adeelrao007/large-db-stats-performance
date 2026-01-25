@@ -10,6 +10,7 @@ class CategoryTranslationSeeder extends Seeder
     public function run(): void
     {
         $faker = fake();
+        DB::table('category_translations')->truncate();
 
         foreach (range(1, 5) as $langId) {
             DB::table('categories')->select('id')->chunk(1000, function ($cats) use ($faker, $langId) {

@@ -10,6 +10,7 @@ class AddressSeeder extends Seeder
     public function run(): void
     {
         $faker = fake();
+        DB::table('addresses')->truncate();
 
         DB::table('users')->select('id')->chunk(1000, function ($users) use ($faker) {
             $batch = [];

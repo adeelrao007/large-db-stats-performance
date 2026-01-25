@@ -10,6 +10,7 @@ class ProductReviewSeeder extends Seeder
     public function run(): void
     {
         $faker = fake();
+        DB::table('product_reviews')->truncate();
 
         DB::table('orders')->select('user_id')->chunk(1000, function ($orders) use ($faker) {
             $batch = [];
