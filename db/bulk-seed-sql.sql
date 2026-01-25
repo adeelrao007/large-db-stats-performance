@@ -35,13 +35,15 @@ INSERT INTO currencies (code, symbol, exchange_rate, is_base) VALUES
 ('USD', '$', 1.00000000, 1),
 ('EUR', '€', 0.92000000, 0),
 ('GBP', '£', 0.79000000, 0),
-('PKR', '₨', 278.00000000, 0);
+('PKR', '₨', 278.00000000, 0),
+('SAR', '﷼', 3.75000000, 0);
 
 INSERT INTO regions (code, name, default_currency_id) VALUES
 ('US', 'United States', 1),
 ('EU', 'Europe', 2),
 ('UK', 'United Kingdom', 3),
-('PK', 'Pakistan', 4);
+('PK', 'Pakistan', 4),
+('KSA', 'Saudi Arabia', 5);
 
 /* =========================
    ACCOUNTS
