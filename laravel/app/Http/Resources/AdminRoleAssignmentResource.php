@@ -11,7 +11,7 @@ class AdminRoleAssignmentResource extends JsonResource
     {
         return [
             'admin_user_id' => $this->admin_user_id,
-            'role_id'       => $this->role_id,
+            'role_id' => $this->role_id,
 
             'admin' => new AdminUserResource(
                 $this->whenLoaded('adminUser')
@@ -23,4 +23,3 @@ class AdminRoleAssignmentResource extends JsonResource
         ];
     }
 }
-

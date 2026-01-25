@@ -10,7 +10,7 @@ class ConversationResource extends JsonResource
     public function toArray(Request $request)
     {
         return [
-            'id'   => $this->id,
+            'id' => $this->id,
             'type' => $this->type,
 
             'participants' => ConversationParticipantResource::collection(
@@ -19,4 +19,3 @@ class ConversationResource extends JsonResource
         ];
     }
 }
-

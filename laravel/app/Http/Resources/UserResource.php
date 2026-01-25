@@ -10,8 +10,8 @@ class UserResource extends JsonResource
     public function toArray(Request $request)
     {
         return [
-            'id'    => $this->id,
-            'name'  => $this->name,
+            'id' => $this->id,
+            'name' => $this->name,
             'email' => $this->email,
 
             'account' => new AccountResource(
@@ -24,4 +24,3 @@ class UserResource extends JsonResource
         ];
     }
 }
-

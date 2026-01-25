@@ -25,4 +25,3 @@ class ProductReview extends Model
         return $this->belongsTo(User::class);
     }
 }
-

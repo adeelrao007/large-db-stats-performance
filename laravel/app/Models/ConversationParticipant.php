@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class ConversationParticipant extends Model
 {
     protected $table = 'conversation_participants';
+
     public $timestamps = false;
 
     public function conversation()
@@ -19,4 +20,3 @@ class ConversationParticipant extends Model
         return $this->belongsTo(User::class);
     }
 }
-

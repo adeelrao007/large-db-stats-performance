@@ -10,7 +10,7 @@ class CartResource extends JsonResource
     public function toArray(Request $request)
     {
         return [
-            'id'     => $this->id,
+            'id' => $this->id,
             'status' => $this->status,
 
             'items' => CartItemResource::collection(
@@ -19,4 +19,3 @@ class CartResource extends JsonResource
         ];
     }
 }
-

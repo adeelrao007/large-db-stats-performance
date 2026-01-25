@@ -10,8 +10,8 @@ class AdminUserResource extends JsonResource
     public function toArray(Request $request)
     {
         return [
-            'id'    => $this->id,
-            'name'  => $this->name,
+            'id' => $this->id,
+            'name' => $this->name,
             'email' => $this->email,
 
             'roles' => RoleResource::collection(
@@ -20,4 +20,3 @@ class AdminUserResource extends JsonResource
         ];
     }
 }
-

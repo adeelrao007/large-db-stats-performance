@@ -13,4 +13,3 @@ class AdminAuditLog extends Model
         return $this->belongsTo(AdminUser::class, 'admin_user_id');
     }
 }
-

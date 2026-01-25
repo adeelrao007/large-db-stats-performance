@@ -10,9 +10,8 @@ class CurrencyResource extends JsonResource
     public function toArray(Request $request)
     {
         return [
-            'code'   => $this->code,
+            'code' => $this->code,
             'symbol' => $this->symbol,
         ];
     }
 }
-

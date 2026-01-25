@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class MessageRead extends Model
 {
     protected $table = 'message_reads';
+
     public $timestamps = false;
 
     protected $fillable = [
@@ -29,4 +30,3 @@ class MessageRead extends Model
         return $this->belongsTo(User::class);
     }
 }
-

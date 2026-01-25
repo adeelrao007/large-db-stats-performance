@@ -10,7 +10,7 @@ class OrderResource extends JsonResource
     public function toArray(Request $request)
     {
         return [
-            'id'     => $this->id,
+            'id' => $this->id,
             'amount' => $this->amount,
             'status' => $this->status,
 
@@ -24,4 +24,3 @@ class OrderResource extends JsonResource
         ];
     }
 }
-

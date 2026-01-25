@@ -11,7 +11,7 @@ class CartItemResource extends JsonResource
     {
         return [
             'quantity' => $this->quantity,
-            'price'    => $this->price,
+            'price' => $this->price,
 
             'product' => new ProductResource(
                 $this->whenLoaded('product')
@@ -19,4 +19,3 @@ class CartItemResource extends JsonResource
         ];
     }
 }
-

@@ -11,8 +11,7 @@ class ConversationParticipantResource extends JsonResource
     {
         return [
             'user_id' => $this->user_id,
-            'role'    => $this->role,
+            'role' => $this->role,
         ];
     }
 }
-

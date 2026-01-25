@@ -15,7 +15,7 @@ class MessageSeeder extends Seeder
             'Thanks!',
             'Order placed 👍',
             'When will it ship?',
-            'Please update me'
+            'Please update me',
         ];
 
         DB::table('conversation_participants')

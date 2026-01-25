@@ -11,9 +11,8 @@ class ProductTranslationResource extends JsonResource
     {
         return [
             'language_id' => $this->language_id,
-            'name'        => $this->name,
+            'name' => $this->name,
             'description' => $this->description,
         ];
     }
 }
-

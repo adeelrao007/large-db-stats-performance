@@ -10,11 +10,10 @@ class ShipmentResource extends JsonResource
     public function toArray(Request $request)
     {
         return [
-            'carrier'         => $this->carrier,
+            'carrier' => $this->carrier,
             'tracking_number' => $this->tracking_number,
-            'status'          => $this->status,
-            'shipped_at'      => $this->shipped_at,
+            'status' => $this->status,
+            'shipped_at' => $this->shipped_at,
         ];
     }
 }
-

@@ -33,7 +33,4 @@ class AdminUser extends Model
 
         return in_array($permission, $permissions);
     }
-
-
 }
-

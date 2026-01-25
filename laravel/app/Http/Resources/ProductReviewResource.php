@@ -10,9 +10,9 @@ class ProductReviewResource extends JsonResource
     public function toArray(Request $request)
     {
         return [
-            'rating'     => $this->rating,
-            'comment'    => $this->comment,
-            'created_at'=> $this->created_at,
+            'rating' => $this->rating,
+            'comment' => $this->comment,
+            'created_at' => $this->created_at,
 
             'user' => new UserResource(
                 $this->whenLoaded('user')
@@ -20,4 +20,3 @@ class ProductReviewResource extends JsonResource
         ];
     }
 }
-

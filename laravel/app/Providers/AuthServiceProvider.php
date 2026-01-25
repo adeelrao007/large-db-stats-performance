@@ -14,4 +14,3 @@ class AuthServiceProvider extends ServiceProvider
         Gate::policy(User::class, UserPolicy::class);
     }
 }
-

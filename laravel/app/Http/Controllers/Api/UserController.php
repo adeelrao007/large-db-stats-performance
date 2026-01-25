@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
 use App\Http\Resources\UserResource;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -29,8 +29,8 @@ class UserController extends Controller
     {
         $data = $request->validate([
             'account_id' => 'required|exists:accounts,id',
-            'name'       => 'required|string',
-            'email'      => 'required|email|unique:users,email',
+            'name' => 'required|string',
+            'email' => 'required|email|unique:users,email',
         ]);
 
         $user = User::create($data);
@@ -41,8 +41,8 @@ class UserController extends Controller
     public function update(Request $request, User $user)
     {
         $data = $request->validate([
-            'name'  => 'string',
-            'email' => 'email|unique:users,email,' . $user->id,
+            'name' => 'string',
+            'email' => 'email|unique:users,email,'.$user->id,
         ]);
 
         $user->update($data);

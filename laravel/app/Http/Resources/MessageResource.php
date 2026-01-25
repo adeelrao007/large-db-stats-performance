@@ -10,8 +10,8 @@ class MessageResource extends JsonResource
     public function toArray(Request $request)
     {
         return [
-            'id'         => $this->id,
-            'body'       => $this->body,
+            'id' => $this->id,
+            'body' => $this->body,
             'created_at' => $this->created_at,
 
             'sender' => new UserResource(
@@ -20,4 +20,3 @@ class MessageResource extends JsonResource
         ];
     }
 }
-

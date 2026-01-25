@@ -14,4 +14,3 @@ class ProductInventoryResource extends JsonResource
         ];
     }
 }
-

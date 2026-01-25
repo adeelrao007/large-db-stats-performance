@@ -10,7 +10,7 @@ class RoleResource extends JsonResource
     public function toArray(Request $request)
     {
         return [
-            'id'   => $this->id,
+            'id' => $this->id,
             'name' => $this->name,
 
             'permissions' => PermissionResource::collection(
@@ -19,4 +19,3 @@ class RoleResource extends JsonResource
         ];
     }
 }
-
