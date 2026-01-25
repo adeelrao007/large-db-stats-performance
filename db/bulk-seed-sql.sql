@@ -157,7 +157,7 @@ WHERE n <= 300000;
    CONVERSATION PARTICIPANTS
 ========================= */
 
-INSERT INTO conversation_participants (conversation_id, user_id)
+INSERT IGNORE INTO conversation_participants (conversation_id, user_id)
 SELECT
   FLOOR(1 + RAND()*300000),
   FLOOR(1 + RAND()*200000)
@@ -168,7 +168,7 @@ WHERE n <= 1200000;
    MESSAGE READS
 ========================= */
 
-INSERT INTO message_reads (message_id, user_id)
+INSERT IGNORE INTO message_reads (message_id, user_id)
 SELECT
   FLOOR(1 + RAND()*10000000),
   FLOOR(1 + RAND()*200000)
