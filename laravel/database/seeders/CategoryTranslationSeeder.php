@@ -13,7 +13,7 @@ class CategoryTranslationSeeder extends Seeder
         DB::table('category_translations')->truncate();
 
         foreach (range(1, 5) as $langId) {
-            DB::table('categories')->select('id')->chunk(10000, function ($cats) use ($faker, $langId) {
+            DB::table('categories')->select('id')->chunk(5000, function ($cats) use ($faker, $langId) {
                 $batch = [];
 
                 foreach ($cats as $cat) {

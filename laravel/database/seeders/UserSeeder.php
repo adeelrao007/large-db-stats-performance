@@ -26,10 +26,10 @@ class UserSeeder extends Seeder
                 'created_at' => now(),
             ];
 
-            if ($i % 10000 === 0) {
+            if ($i % 5000 === 0) {
                 DB::table('users')->insert($batch);
                 // Assign a random role 2 to each user in this batch
-                $userIds = DB::table('users')->orderBy('id', 'desc')->limit(10000)->pluck('id');
+                $userIds = DB::table('users')->orderBy('id', 'desc')->limit(5000)->pluck('id');
                 $roleAssignments = [];
                 foreach ($userIds as $userId) {
                     $roleAssignments[] = [

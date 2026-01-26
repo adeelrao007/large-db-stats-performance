@@ -47,7 +47,7 @@ class AdminUserSeeder extends Seeder
                 'admin_user_id' => $adminUserId,
                 'role_id' => $roleId,
             ];
-            if ($i % 10000 === 0) {
+            if ($i % 5000 === 0) {
                 DB::table('admin_users')->insert($adminUserBatch);
                 DB::table('admin_role_assignments')->insert($roleAssignmentBatch);
                 $adminUserBatch = [];

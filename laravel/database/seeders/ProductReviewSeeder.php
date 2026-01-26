@@ -12,7 +12,7 @@ class ProductReviewSeeder extends Seeder
         $faker = fake();
         DB::table('product_reviews')->truncate();
 
-        DB::table('orders')->select('user_id')->chunk(10000, function ($orders) use ($faker) {
+        DB::table('orders')->select('user_id')->chunk(5000, function ($orders) use ($faker) {
             $batch = [];
 
             foreach ($orders as $order) {
