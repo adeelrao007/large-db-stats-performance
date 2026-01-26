@@ -25,6 +25,7 @@ class DatabaseSeeder extends Seeder
             ProductTranslationSeeder::class,
             MessageSeeder::class,
             ProductReviewSeeder::class,
+            CartItemSeeder::class,
         ]);
     }
 }
