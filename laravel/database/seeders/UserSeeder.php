@@ -12,6 +12,7 @@ class UserSeeder extends Seeder
         $faker = fake();
         $batch = [];
         DB::table('users')->truncate();
+        DB::table('user_role_assignments')->truncate();
 
         for ($i = 1; $i <= 200000; $i++) {
             $batch[] = [
@@ -27,8 +28,31 @@ class UserSeeder extends Seeder
 
             if ($i % 1000 === 0) {
                 DB::table('users')->insert($batch);
+                // Assign a random role 2 to each user in this batch
+                $userIds = DB::table('users')->orderBy('id', 'desc')->limit(1000)->pluck('id');
+                $roleAssignments = [];
+                foreach ($userIds as $userId) {
+                    $roleAssignments[] = [
+                        'user_id' => $userId,
+                        'role_id' => 2,
+                    ];
+                }
+                DB::table('user_role_assignments')->insert($roleAssignments);
                 $batch = [];
             }
+        }
+        // Insert any remaining users and assign roles
+        if (!empty($batch)) {
+            DB::table('users')->insert($batch);
+            $userIds = DB::table('users')->orderBy('id', 'desc')->limit(count($batch))->pluck('id');
+            $roleAssignments = [];
+            foreach ($userIds as $userId) {
+                $roleAssignments[] = [
+                    'user_id' => $userId,
+                    'role_id' => rand(1, 3),
+                ];
+            }
+            DB::table('user_role_assignments')->insert($roleAssignments);
         }
     }
 }

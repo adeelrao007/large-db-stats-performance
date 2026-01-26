@@ -11,6 +11,7 @@ class AdminUserSeeder extends Seeder
     {
         $faker = fake();
         DB::table('admin_users')->truncate();
+        DB::table('admin_role_assignments')->truncate();
 
         DB::table('admin_users')->insert([
             [
