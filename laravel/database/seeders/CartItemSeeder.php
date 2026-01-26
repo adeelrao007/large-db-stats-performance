@@ -20,7 +20,7 @@ class CartItemSeeder extends Seeder
         $faker = \Faker\Factory::create();
 
         // Process carts in chunks to avoid memory issues
-        DB::table('carts')->orderBy('id')->chunk(1000, function ($carts) use ($faker) {
+        DB::table('carts')->orderBy('id')->chunk(10000, function ($carts) use ($faker) {
             $batch = [];
             foreach ($carts as $cart) {
                 // Assign 1-5 random products to each cart

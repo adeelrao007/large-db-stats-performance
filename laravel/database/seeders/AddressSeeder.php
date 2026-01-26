@@ -12,7 +12,7 @@ class AddressSeeder extends Seeder
         $faker = fake();
         DB::table('addresses')->truncate();
 
-        DB::table('users')->select('id')->chunk(1000, function ($users) use ($faker) {
+        DB::table('users')->select('id')->chunk(10000, function ($users) use ($faker) {
             $batch = [];
 
             foreach ($users as $user) {

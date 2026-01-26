@@ -22,7 +22,7 @@ class MessageSeeder extends Seeder
 
         DB::table('conversation_participants')
             ->select('conversation_id', 'user_id')
-            ->chunk(1000, function ($rows) use ($messages) {
+            ->chunk(10000, function ($rows) use ($messages) {
                 $batch = [];
 
                 foreach ($rows as $row) {

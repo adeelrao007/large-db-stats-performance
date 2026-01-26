@@ -13,7 +13,7 @@ class ProductTranslationSeeder extends Seeder
         DB::table('product_translations')->truncate();
 
         foreach (range(1, 5) as $langId) {
-            DB::table('products')->select('id')->chunk(1000, function ($products) use ($faker, $langId) {
+            DB::table('products')->select('id')->chunk(10000, function ($products) use ($faker, $langId) {
                 $batch = [];
 
                 foreach ($products as $product) {
