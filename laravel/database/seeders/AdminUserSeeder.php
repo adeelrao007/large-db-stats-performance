@@ -10,54 +10,69 @@ class AdminUserSeeder extends Seeder
     public function run(): void
     {
         $faker = fake();
-        DB::table('admin_users')->truncate();
-        DB::table('admin_role_assignments')->truncate();
-
-        DB::table('admin_users')->insert([
-            [
-                'account_id' => null,
-                'name' => 'Super Admin',
-                'email' => 'admin@example.com',
-                'password' => bcrypt('password'),
-                'status' => 'active',
-                'created_at' => now(),
-            ],
-        ]);
-
-        // Assign only Admin (1) role to Super Admin (id = 1)
-        DB::table('admin_role_assignments')->insert([
-            ['admin_user_id' => 1, 'role_id' => 1],
-        ]);
-
+        $sql = "TRUNCATE TABLE `admin_users`;
+TRUNCATE TABLE `admin_role_assignments`;
+";
+        $sql .= "INSERT INTO `admin_users` (`account_id`, `name`, `email`, `password`, `status`, `created_at`) VALUES (NULL, 'Super Admin', 'admin@example.com', '" . addslashes(bcrypt('password')) . "', 'active', '" . now() . "');\n";
+        $sql .= "INSERT INTO `admin_role_assignments` (`admin_user_id`, `role_id`) VALUES (1, 1);\n";
         $adminUserBatch = [];
         $roleAssignmentBatch = [];
         for ($i = 1; $i <= 9999; $i++) {
             $adminUserId = $i + 1; // Since Super Admin is id 1
             $adminUserBatch[] = [
                 'account_id' => rand(1, 10000),
-                'name' => $faker->name(),
+                'name' => addslashes($faker->name()),
                 'email' => "admin{$i}@example.com",
-                'password' => bcrypt('password'),
+                'password' => addslashes(bcrypt('password')),
                 'status' => 'active',
                 'created_at' => now(),
             ];
-            // Randomly assign either Admin (1) or Manager (3) role to each admin user
             $roleId = rand(0, 1) ? 1 : 3;
             $roleAssignmentBatch[] = [
                 'admin_user_id' => $adminUserId,
                 'role_id' => $roleId,
             ];
-            if ($i % 5000 === 0) {
-                DB::table('admin_users')->insert($adminUserBatch);
-                DB::table('admin_role_assignments')->insert($roleAssignmentBatch);
+            if ($i % 10000 === 0) {
+                foreach ($adminUserBatch as $idx => $user) {
+                    $sql .= sprintf(
+                        "INSERT INTO `admin_users` (`account_id`, `name`, `email`, `password`, `status`, `created_at`) VALUES (%d, '%s', '%s', '%s', '%s', '%s');\n",
+                        $user['account_id'],
+                        $user['name'],
+                        $user['email'],
+                        $user['password'],
+                        $user['status'],
+                        $user['created_at']
+                    );
+                    $sql .= sprintf(
+                        "INSERT INTO `admin_role_assignments` (`admin_user_id`, `role_id`) VALUES (%d, %d);\n",
+                        $roleAssignmentBatch[$idx]['admin_user_id'],
+                        $roleAssignmentBatch[$idx]['role_id']
+                    );
+                }
+                file_put_contents(database_path('seed.sql'), $sql, FILE_APPEND);
                 $adminUserBatch = [];
                 $roleAssignmentBatch = [];
+                $sql = "";
             }
         }
-        // Insert any remaining users and assignments
         if (!empty($adminUserBatch)) {
-            DB::table('admin_users')->insert($adminUserBatch);
-            DB::table('admin_role_assignments')->insert($roleAssignmentBatch);
+            foreach ($adminUserBatch as $idx => $user) {
+                $sql .= sprintf(
+                    "INSERT INTO `admin_users` (`account_id`, `name`, `email`, `password`, `status`, `created_at`) VALUES (%d, '%s', '%s', '%s', '%s', '%s');\n",
+                    $user['account_id'],
+                    $user['name'],
+                    $user['email'],
+                    $user['password'],
+                    $user['status'],
+                    $user['created_at']
+                );
+                $sql .= sprintf(
+                    "INSERT INTO `admin_role_assignments` (`admin_user_id`, `role_id`) VALUES (%d, %d);\n",
+                    $roleAssignmentBatch[$idx]['admin_user_id'],
+                    $roleAssignmentBatch[$idx]['role_id']
+                );
+            }
+            file_put_contents(database_path('seed.sql'), $sql, FILE_APPEND);
         }
     }
 }

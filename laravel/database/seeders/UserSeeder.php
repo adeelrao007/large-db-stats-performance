@@ -11,48 +11,62 @@ class UserSeeder extends Seeder
     {
         $faker = fake();
         $batch = [];
-        DB::table('users')->truncate();
-        DB::table('user_role_assignments')->truncate();
-
+        $sql = "TRUNCATE TABLE `users`;
+TRUNCATE TABLE `user_role_assignments`;
+";
         for ($i = 1; $i <= 200000; $i++) {
             $batch[] = [
                 'account_id' => rand(1, 10000),
                 'language_id' => rand(1, 5),
                 'region_id' => rand(1, 4),
-                'name' => $faker->name(),
+                'name' => addslashes($faker->name()),
                 'email' => "user{$i}@example.com",
                 'email_verified_at' => now(),
                 'password' => bcrypt('password'),
                 'created_at' => now(),
             ];
-
-            if ($i % 5000 === 0) {
-                DB::table('users')->insert($batch);
-                // Assign a random role 2 to each user in this batch
-                $userIds = DB::table('users')->orderBy('id', 'desc')->limit(5000)->pluck('id');
-                $roleAssignments = [];
-                foreach ($userIds as $userId) {
-                    $roleAssignments[] = [
-                        'user_id' => $userId,
-                        'role_id' => 2,
-                    ];
+            if ($i % 10000 === 0) {
+                foreach ($batch as $user) {
+                    $sql .= sprintf(
+                        "INSERT INTO `users` (`account_id`, `language_id`, `region_id`, `name`, `email`, `email_verified_at`, `password`, `created_at`) VALUES (%d, %d, %d, '%s', '%s', '%s', '%s', '%s');\n",
+                        $user['account_id'],
+                        $user['language_id'],
+                        $user['region_id'],
+                        $user['name'],
+                        $user['email'],
+                        $user['email_verified_at'],
+                        $user['password'],
+                        $user['created_at']
+                    );
+                    $sql .= sprintf(
+                        "INSERT INTO `user_role_assignments` (`user_id`, `role_id`) VALUES (LAST_INSERT_ID(), %d);\n",
+                        rand(1, 3)
+                    );
                 }
-                DB::table('user_role_assignments')->insert($roleAssignments);
+                file_put_contents(database_path('seed.sql'), $sql, FILE_APPEND);
                 $batch = [];
+                $sql = "";
             }
         }
-        // Insert any remaining users and assign roles
         if (!empty($batch)) {
-            DB::table('users')->insert($batch);
-            $userIds = DB::table('users')->orderBy('id', 'desc')->limit(count($batch))->pluck('id');
-            $roleAssignments = [];
-            foreach ($userIds as $userId) {
-                $roleAssignments[] = [
-                    'user_id' => $userId,
-                    'role_id' => rand(1, 3),
-                ];
+            foreach ($batch as $user) {
+                $sql .= sprintf(
+                    "INSERT INTO `users` (`account_id`, `language_id`, `region_id`, `name`, `email`, `email_verified_at`, `password`, `created_at`) VALUES (%d, %d, %d, '%s', '%s', '%s', '%s', '%s');\n",
+                    $user['account_id'],
+                    $user['language_id'],
+                    $user['region_id'],
+                    $user['name'],
+                    $user['email'],
+                    $user['email_verified_at'],
+                    $user['password'],
+                    $user['created_at']
+                );
+                $sql .= sprintf(
+                    "INSERT INTO `user_role_assignments` (`user_id`, `role_id`) VALUES (LAST_INSERT_ID(), %d);\n",
+                    rand(1, 3)
+                );
             }
-            DB::table('user_role_assignments')->insert($roleAssignments);
+            file_put_contents(database_path('seed.sql'), $sql, FILE_APPEND);
         }
     }
 }

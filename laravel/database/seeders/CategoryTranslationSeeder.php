@@ -10,22 +10,19 @@ class CategoryTranslationSeeder extends Seeder
     public function run(): void
     {
         $faker = fake();
-        DB::table('category_translations')->truncate();
-
+        $sql = "TRUNCATE TABLE `category_translations`;
+";
         foreach (range(1, 5) as $langId) {
-            DB::table('categories')->select('id')->chunk(5000, function ($cats) use ($faker, $langId) {
-                $batch = [];
-
-                foreach ($cats as $cat) {
-                    $batch[] = [
-                        'category_id' => $cat->id,
-                        'language_id' => $langId,
-                        'name' => ucfirst($faker->word()),
-                    ];
-                }
-
-                DB::table('category_translations')->insert($batch);
-            });
+            foreach (range(1, 100) as $catId) {
+                $sql .= sprintf(
+                    "INSERT INTO `category_translations` (`category_id`, `language_id`, `name`, `description`) VALUES (%d, %d, '%s', '%s');\n",
+                    $catId,
+                    $langId,
+                    addslashes($faker->word()),
+                    addslashes($faker->sentence())
+                );
+            }
         }
+        file_put_contents(database_path('seed.sql'), $sql, FILE_APPEND);
     }
 }

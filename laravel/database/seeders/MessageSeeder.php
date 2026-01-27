@@ -9,8 +9,9 @@ class MessageSeeder extends Seeder
 {
     public function run(): void
     {
-
-        DB::table('messages')->truncate();
+        $faker = fake();
+        $sql = "TRUNCATE TABLE `messages`;
+";
         $messages = [
             'Hi, is this available?',
             'Can you share more details?',
@@ -19,22 +20,15 @@ class MessageSeeder extends Seeder
             'When will it ship?',
             'Please update me',
         ];
-
-        DB::table('conversation_participants')
-            ->select('conversation_id', 'user_id')
-            ->chunk(5000, function ($rows) use ($messages) {
-                $batch = [];
-
-                foreach ($rows as $row) {
-                    $batch[] = [
-                        'conversation_id' => $row->conversation_id,
-                        'sender_id' => $row->user_id,
-                        'body' => $messages[array_rand($messages)],
-                        'created_at' => now(),
-                    ];
-                }
-
-                DB::table('messages')->insert($batch);
-            });
+        for ($i = 1; $i <= 10000; $i++) {
+            $sql .= sprintf(
+                "INSERT INTO `messages` (`conversation_id`, `sender_id`, `body`, `created_at`) VALUES (%d, %d, '%s', '%s');\n",
+                rand(1, 10000),
+                rand(1, 200000),
+                addslashes($messages[array_rand($messages)]),
+                now()
+            );
+        }
+        file_put_contents(database_path('seed.sql'), $sql, FILE_APPEND);
     }
 }

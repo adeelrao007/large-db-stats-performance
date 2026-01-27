@@ -13,35 +13,19 @@ class CartItemSeeder extends Seeder
      */
     public function run(): void
     {
-        // Truncate cart_items table for a clean slate
-        DB::table('cart_items')->truncate();
-
-        // Assign random products to each cart without loading all product IDs into memory
         $faker = \Faker\Factory::create();
-
-        // Process carts in chunks to avoid memory issues
-        DB::table('carts')->orderBy('id')->chunk(5000, function ($carts) use ($faker) {
-            $batch = [];
-            foreach ($carts as $cart) {
-                // Assign 1-5 random products to each cart
-                $numProducts = rand(1, 5);
-                $selectedProducts = DB::table('products')
-                    ->inRandomOrder()
-                    ->limit($numProducts)
-                    ->pluck('id');
-                foreach ($selectedProducts as $productId) {
-                    $batch[] = [
-                        'cart_id' => $cart->id,
-                        'product_id' => $productId,
-                        'quantity' => rand(1, 3),
-                        'price' => $faker->randomFloat(2, 10, 500),
-                    ];
-                }
-            }
-            // Insert in batch for performance
-            if (!empty($batch)) {
-                DB::table('cart_items')->insert($batch);
-            }
-        });
+        $sql = "TRUNCATE TABLE `cart_items`;
+";
+        // For demonstration, generate 10000 cart items
+        for ($i = 1; $i <= 10000; $i++) {
+            $sql .= sprintf(
+                "INSERT INTO `cart_items` (`cart_id`, `product_id`, `quantity`, `price`) VALUES (%d, %d, %d, %.2f);\n",
+                rand(1, 299625),
+                rand(1, 498576),
+                rand(1, 3),
+                $faker->randomFloat(2, 10, 500)
+            );
+        }
+        file_put_contents(database_path('seed.sql'), $sql, FILE_APPEND);
     }
 }

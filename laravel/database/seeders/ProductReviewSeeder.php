@@ -10,26 +10,18 @@ class ProductReviewSeeder extends Seeder
     public function run(): void
     {
         $faker = fake();
-        DB::table('product_reviews')->truncate();
-
-        DB::table('orders')->select('user_id')->chunk(5000, function ($orders) use ($faker) {
-            $batch = [];
-
-            foreach ($orders as $order) {
-                if (rand(0, 1)) {
-                    $batch[] = [
-                        'product_id' => rand(1, 500000),
-                        'user_id' => $order->user_id,
-                        'rating' => rand(3, 5),
-                        'comment' => $faker->sentence(),
-                        'created_at' => now(),
-                    ];
-                }
-            }
-
-            if ($batch) {
-                DB::table('product_reviews')->insert($batch);
-            }
-        });
+        $sql = "TRUNCATE TABLE `product_reviews`;
+";
+        for ($i = 1; $i <= 10000; $i++) {
+            $sql .= sprintf(
+                "INSERT INTO `product_reviews` (`product_id`, `user_id`, `rating`, `review`, `created_at`) VALUES (%d, %d, %d, '%s', '%s');\n",
+                rand(1, 1000),
+                rand(1, 200000),
+                rand(1, 5),
+                addslashes($faker->sentence()),
+                now()
+            );
+        }
+        file_put_contents(database_path('seed.sql'), $sql, FILE_APPEND);
     }
 }

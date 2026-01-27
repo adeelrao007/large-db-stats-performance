@@ -10,23 +10,19 @@ class ProductTranslationSeeder extends Seeder
     public function run(): void
     {
         $faker = fake();
-        DB::table('product_translations')->truncate();
-
+        $sql = "TRUNCATE TABLE `product_translations`;
+";
         foreach (range(1, 5) as $langId) {
-            DB::table('products')->select('id')->chunk(5000, function ($products) use ($faker, $langId) {
-                $batch = [];
-
-                foreach ($products as $product) {
-                    $batch[] = [
-                        'product_id' => $product->id,
-                        'language_id' => $langId,
-                        'name' => $faker->productName(),
-                        'description' => $faker->paragraph(),
-                    ];
-                }
-
-                DB::table('product_translations')->insert($batch);
-            });
+            foreach (range(1, 1000) as $productId) {
+                $sql .= sprintf(
+                    "INSERT INTO `product_translations` (`product_id`, `language_id`, `name`, `description`) VALUES (%d, %d, '%s', '%s');\n",
+                    $productId,
+                    $langId,
+                    addslashes($faker->word()),
+                    addslashes($faker->sentence())
+                );
+            }
         }
+        file_put_contents(database_path('seed.sql'), $sql, FILE_APPEND);
     }
 }
