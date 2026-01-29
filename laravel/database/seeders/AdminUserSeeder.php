@@ -32,7 +32,7 @@ TRUNCATE TABLE `admin_role_assignments`;
                 'admin_user_id' => $adminUserId,
                 'role_id' => $roleId,
             ];
-            if ($i % 10000 === 0) {
+            if ($i % 1000 === 0) {
                 foreach ($adminUserBatch as $idx => $user) {
                     $sql .= sprintf(
                         "INSERT INTO `admin_users` (`account_id`, `name`, `email`, `password`, `status`, `created_at`) VALUES (%d, '%s', '%s', '%s', '%s', '%s');\n",
